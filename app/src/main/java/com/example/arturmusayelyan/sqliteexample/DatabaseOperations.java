@@ -45,6 +45,25 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = databaseOperations.getReadableDatabase();
         String[] columns = {TableData.TableInfo.USER_NAME, TableData.TableInfo.USER_PASSWORD};
         Cursor cursor = sqLiteDatabase.query(TableData.TableInfo.TABLE_NAME, columns, null, null, null, null, null);
+        Log.d("Database operations", "cursor retrieved");
         return cursor;
+    }
+
+
+    public Cursor getUserPassword(DatabaseOperations databaseOperations, String userName) {
+        SQLiteDatabase sqLiteDatabase = databaseOperations.getReadableDatabase();
+        String selection = TableData.TableInfo.USER_NAME + " Like ?";
+        String columns[] = {TableData.TableInfo.USER_PASSWORD};
+        String args[] = {userName};
+        Cursor cursor = sqLiteDatabase.query(TableData.TableInfo.TABLE_NAME, columns, selection, args, null, null, null);
+        return cursor;
+    }
+
+    public void deleteUser(DatabaseOperations databaseOperations, String userName, String password) {
+        String selection = TableData.TableInfo.USER_NAME + " Like ? AND " + TableData.TableInfo.USER_PASSWORD + " Like ?";
+        // String columns[] = {TableData.TableInfo.USER_PASSWORD};
+        String args[] = {userName, password};
+        SQLiteDatabase sqLiteDatabase = databaseOperations.getWritableDatabase();
+        sqLiteDatabase.delete(TableData.TableInfo.TABLE_NAME, selection, args);
     }
 }
