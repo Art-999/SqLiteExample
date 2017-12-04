@@ -66,4 +66,13 @@ public class DatabaseOperations extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = databaseOperations.getWritableDatabase();
         sqLiteDatabase.delete(TableData.TableInfo.TABLE_NAME, selection, args);
     }
+
+    public void updateUserInfo(DatabaseOperations databaseOperations, String userName, String userPass, String newUserName) {
+        SQLiteDatabase sqLiteDatabase = databaseOperations.getWritableDatabase();
+        String selesction = TableData.TableInfo.USER_NAME + " LIKE ? AND " + TableData.TableInfo.USER_PASSWORD + " LIKE ?";
+        String args[]={userName,userPass};
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(TableData.TableInfo.USER_NAME,newUserName);
+        sqLiteDatabase.update(TableData.TableInfo.TABLE_NAME,contentValues,selesction,args);
+    }
 }

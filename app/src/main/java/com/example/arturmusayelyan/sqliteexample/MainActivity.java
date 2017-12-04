@@ -28,13 +28,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.update_button:
                 status = 2;
-
+                Intent intent2 = new Intent(this, LoginActivity.class);
+                intent2.putExtra("status", status);
+                startActivity(intent2);
                 break;
             case R.id.delete_button:
                 status = 3;
-                Intent intent2 = new Intent(this, LoginActivity.class);
-                intent2.putExtra("status",status);
-                startActivity(intent2);
+                Intent intent3 = new Intent(this, LoginActivity.class);
+                intent3.putExtra("status", status);
+                startActivity(intent3);
                 break;
         }
     }
